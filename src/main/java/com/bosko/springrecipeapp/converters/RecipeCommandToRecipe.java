@@ -4,7 +4,6 @@ import com.bosko.springrecipeapp.commands.RecipeCommand;
 import com.bosko.springrecipeapp.domain.Recipe;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,7 +20,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
     }
 
     @Synchronized
-    @Nullable
+//    @Nullable
     @Override
     public Recipe convert(RecipeCommand source) {
 
