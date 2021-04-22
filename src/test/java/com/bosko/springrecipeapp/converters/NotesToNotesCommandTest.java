@@ -35,10 +35,8 @@ class NotesToNotesCommandTest {
         notes.setId(ID_VALUE);
         notes.setRecipeNotes(RECIPE_NOTES);
 
-        //when
         NotesCommand notesCommand = converter.convert(notes);
 
-        //then
         assertEquals(ID_VALUE, notesCommand.getId());
         assertEquals(RECIPE_NOTES, notesCommand.getRecipeNotes());
     }
