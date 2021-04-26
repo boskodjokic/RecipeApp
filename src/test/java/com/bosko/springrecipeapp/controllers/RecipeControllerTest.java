@@ -2,6 +2,7 @@ package com.bosko.springrecipeapp.controllers;
 
 import com.bosko.springrecipeapp.commands.RecipeCommand;
 import com.bosko.springrecipeapp.domain.Recipe;
+import com.bosko.springrecipeapp.exceptions.NotFoundException;
 import com.bosko.springrecipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -50,6 +52,17 @@ class RecipeControllerTest {
                 .andExpect(view().name("recipe/show"))
         .andExpect(model().attributeExists("recipe"));
     }
+
+    @Test
+    void testGetRecipeNotFound() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
+    }
+
 
     @Test
     public void testGetNewRecipeForm() throws Exception {
