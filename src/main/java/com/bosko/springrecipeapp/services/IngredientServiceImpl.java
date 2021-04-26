@@ -5,6 +5,7 @@ import com.bosko.springrecipeapp.converters.IngredientCommandToIngredient;
 import com.bosko.springrecipeapp.converters.IngredientToIngredientCommand;
 import com.bosko.springrecipeapp.domain.Ingredient;
 import com.bosko.springrecipeapp.domain.Recipe;
+import com.bosko.springrecipeapp.exceptions.NotFoundException;
 import com.bosko.springrecipeapp.repositories.RecipeRepository;
 import com.bosko.springrecipeapp.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +46,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         if (!ingredientCommandOptional.isPresent()) {
             log.error("Ingredient id not found: " + ingredientId);
+            throw new NotFoundException("Ingredient not found for ID: " + ingredientId);
         }
 
         return ingredientCommandOptional.get();
@@ -132,6 +134,8 @@ public class IngredientServiceImpl implements IngredientService {
             }
         } else {
             log.debug("Recipe Id Not found. Id:" + recipeId);
+
+
         }
     }
 }
