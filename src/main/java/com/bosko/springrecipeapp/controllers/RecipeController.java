@@ -34,9 +34,19 @@ public class RecipeController {
 
     }
 
+//    @GetMapping("recipe/new")
+//    public String newRecipe(Model model) {
+//        model.addAttribute("recipe", new RecipeCommand());
+//
+//        return RECIPE_RECIPEFORM_URL;
+//    }
+
     @GetMapping("recipe/new")
     public String newRecipe(Model model) {
-        model.addAttribute("recipe", new RecipeCommand());
+        RecipeCommand command = new RecipeCommand();
+        command.setId((long) (recipeService.getRecipes().size() + 1));
+        command=recipeService.saveRecipeCommand(command);
+        model.addAttribute("recipe", command);
 
         return RECIPE_RECIPEFORM_URL;
     }
